@@ -1,22 +1,47 @@
-#Define:
-[1] Make sure your project is under the current directory.<br>
-[2] Input your project name.<br>
-[3] Input salt value, Only letters are allowed.<br>
-[4] If successful, an encrypted key-value is output, good luck..<br>
+### Description:
+1. Make sure ```reskey.txt``` is under the current directory.
+2. Input your project path.
+3. Input salt value, Only letters are allowed.
+4. If successful, an encrypted key-value is output, good luck..
 
--------------------------------------------------------------------
-#0x00:
-`hyadeiMac:oc-obfuscator hya$ python oc-obfuscator.py `<br>
 
-#0x01
-`->ProjectName:project_name`<br>
-	├── /Users/hya/PycharmProjects/oc-obfuscator/CHGetID<br>
-		├── .DS_Store<br>
-		├── /Users/hya/PycharmProjects/oc-obfuscator/CHGetID/.git<br>
-			├── COMMIT_EDITMSG<br>
-    .....<br>
-    ....<br>
-    The tree of project .<br>
-#0x02
-`->SaltKey:hello`<br>
-success!<br>
+### build:
+```
+$ git clone https://github.com/ch4r04/oc-obfuscator.git
+$ cd oc-obfuscator
+```
+### step 1:
+```
+$ python oc-obfuscator.py
+```
+### step 2:
+input your project path;
+```
+->ProjectName:/User/aaa/Desktop/ExampleProj
+```
+Folder tree structure:
+```
+├── /Users/aaa/Desktop/ExampleProj/ExampleProj
+		├── /Users/aaa/Desktop/ExampleProj/.git
+			├── COMMIT_EDITMSG
+			├── config
+			├── description
+			├── HEAD
+			├── /Users/aaa/Desktop/ExampleProj/ExampleProj/.git/hooks
+				├── README.sample
+.....
+....
+```
+### step 3:
+```
+->SaltKey:hello
+```
+```
+Read OK!!!!!
+SaltKey:OIJ
+------------------------------------------
+LogPath: /Users/aaa/Desktop/TrueSDK/oc-obfuscator/seclog.txt
+Encrypt ProjectPath: /Users/aaa/Desktop/ExampleProj/oc-obfuscator/FuckSDK
+success!
+``
+
