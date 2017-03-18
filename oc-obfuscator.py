@@ -42,11 +42,14 @@ RES_KEY_PATH = 'reskeys.txt'
 #读取白名单文件内容到列表中
 def readTxtToList(r_path):
     tmplist = []
-    txtpath = r_path
-    fp = open(txtpath,'r')
-    fstr = fp.read()
-    tmplist = re.findall(r'\w+',fstr)
-    return tmplist
+    try:
+        with open(r_path,'r') as fp:
+            fstr = fp.read()
+            tmplist = re.findall(r'\w+',fstr)
+            return tmplist
+    except Exception,e:
+        print e
+        return tmplist
 
 #内容写入文件操作
 def writeContextToFile(context,filepath):
@@ -531,7 +534,7 @@ def travelTree(currentPath, count):
         for eachPath in pathList:
             travelTree(currentPath + '/' + eachPath, count + 1)
 
-def outPutLog(all_keys):
+def outPutLog(all_keys,current_path):
     try:
     #在该目录下创建log
         ABSPATH = os.path.dirname(os.path.abspath(sys.argv[0])) + "/"
@@ -549,39 +552,45 @@ def outPutLog(all_keys):
             tmpstr = '%s\t\t%s\n' % (v,k)
             fopen.writelines(tmpstr)
         fopen.close()
+        print "------------------------------------------"
         print "LogPath:",filestr
+        print "Encrypt ProjectPath:",current_path
         return True
     except Exception,e:
         print e
         return False
 
-
 def inputArgs():
     WHITE_LIST = readTxtToList(RES_KEY_PATH)
-    ABSPATH = os.path.abspath(sys.argv[0])
-    ABSPATH = os.path.dirname(ABSPATH) + "/"
-    projectFile = ABSPATH + raw_input("->ProjectName:")
+    projectFile = raw_input("->ProjectPath:").strip()
     if os.path.exists(projectFile) == True:
         travelTree(projectFile,1)
         print "Project Path:",projectFile,'\n'
+        print "Read OK!!!!!"
+        #复制工程到当前目录
+        current_path = sys.path[0] + "/" + os.path.basename(projectFile)
+        try:
+            shutil.rmtree(current_path)
+        except:
+            pass
+        shutil.copytree(projectFile,current_path)
     else:
         print "Are you sure the file is exists?"
         exit()
 
-    SALT = raw_input("SaltKey:")
+    SALT = raw_input("SaltKey:").strip()
     if SALT.isalpha() == False:
         print "can not include (1-9) or (@!#%^...)"
         exit()
 
-    need_encrypt_file_tuple = getNeedEncryptFileList(projectFile)
+    need_encrypt_file_tuple = getNeedEncryptFileList(current_path)
     all_keys_tuple = getAllKeys(need_encrypt_file_tuple[0], need_encrypt_file_tuple[1], SALT, WHITE_LIST)
     startWorks(need_encrypt_file_tuple[0], all_keys_tuple[1], all_keys_tuple[2], all_keys_tuple[3])
-    allkeys = renameFile(projectFile, need_encrypt_file_tuple[0], all_keys_tuple[0], all_keys_tuple[1],
+    allkeys = renameFile(current_path, need_encrypt_file_tuple[0], all_keys_tuple[0], all_keys_tuple[1],
                          all_keys_tuple[2], all_keys_tuple[3])
-    outPutLog(allkeys)
+    outPutLog(allkeys,current_path)
+
     print 'success!'
-
-
 
 if __name__ == '__main__':
     # parseArgs()
