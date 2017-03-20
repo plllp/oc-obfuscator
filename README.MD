@@ -33,9 +33,7 @@ Folder tree structure:
 ....
 ```
 ### step 3:
-```
-->SaltKey:hello
-```
+input your salt key
 ```
 Read OK!!!!!
 SaltKey:OIJ
