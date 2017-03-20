@@ -39,7 +39,7 @@ Read OK!!!!!
 SaltKey:OIJ
 ------------------------------------------
 LogPath: /Users/aaa/Desktop/TrueSDK/oc-obfuscator/seclog.txt
-Encrypt ProjectPath: /Users/aaa/Desktop/ExampleProj/oc-obfuscator/FuckSDK
+Encrypt ProjectPath: /Users/aaa/Desktop/ExampleProj/oc-obfuscator/ExampleProj
 success!
 ``
 
